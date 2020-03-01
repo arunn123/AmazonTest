@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
@@ -19,6 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.Select;
 
 public class Firstwindow {
@@ -32,17 +32,11 @@ public class Firstwindow {
 	public static FileInputStream fis = null;
 	public static XSSFWorkbook workbook = null;
 	public static XSSFSheet sheet = null;
-	public static ChromeOptions option;
-	
-	
 
 	public static void launch_the_Amazon_URL() {
-		option=new ChromeOptions();
-		option.addArguments("--headless");
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\Arun\\eclipse-workspace\\BDD_AmazonTest\\browser\\chromedriver.exe");
-		wd = new ChromeDriver(option);
-
+		wd = new ChromeDriver();
 		wd.manage().window().maximize();
 		wd.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -52,7 +46,6 @@ public class Firstwindow {
 	}
 
 	public static void user_enters_product_name_by_choosing_category_and_hit_search() throws IOException {
-		
 		wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement chooseCategory = wd
 				.findElement(By.xpath("//div[@class='nav-search-facade']/following-sibling::select"));
@@ -78,15 +71,16 @@ public class Firstwindow {
 	}
 
 	public static void list_of_products_should_be_displayed_with_product_name_and_price() throws IOException {
-		
+
 		wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		File src = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(src,
-				new File("C:\\Users\\Arun\\eclipse-workspace\\BDD_AmazonTest\\Screenshot\\product.jpg"));
+//		FileUtils.copyFile(src,
+//				new File("C:\\Users\\Arun\\eclipse-workspace\\BDD_AmazonTest\\Screenshot\\product.jpg"));
+		FileHandler.copy(src, new File("C:\\Users\\Arun\\eclipse-workspace\\BDD_AmazonTest\\Screenshot\\product2.jpg"));
 	}
 
 	public static void user_clicks_on_first_displayed_mobile_result() {
-		
+
 		wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		List<WebElement> mobilelist = wd.findElements(By.xpath(
 				"//a[@class='a-link-normal a-text-normal']/span[@class='a-size-medium a-color-base a-text-normal']"));

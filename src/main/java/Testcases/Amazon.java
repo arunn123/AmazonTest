@@ -70,11 +70,10 @@ public class Amazon {
 	public void user_removes_product_from_cart() {
 		Secondwindow.user_removes_product_from_cart();
 	}
-	
+
 	@And("^user closes the browser$")
 	public void user_closes_the_browser() {
 		Secondwindow.user_closes_the_browser();
 	}
-
 
 }
